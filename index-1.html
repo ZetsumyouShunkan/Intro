@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#11101a">
+<title>イントロドン｜ひとり用</title>
+<style>
+:root{color-scheme:dark;--bg:#11101a;--panel:#1b1928;--panel2:#242136;--line:#39354d;--text:#f5f2ff;--muted:#aaa4bf;--accent:#a78bfa;--accent2:#7c3aed;--good:#46d6a0;--bad:#ff7b91;--gold:#ffd36e}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#28203d 0%,var(--bg) 55%);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
+.wrap{width:min(760px,100%);margin:0 auto;padding:22px 16px 48px}.hero{text-align:center;padding:15px 0 22px}.eyebrow{font-size:11px;letter-spacing:.22em;color:var(--accent);font-weight:800}.hero h1{margin:7px 0 4px;font-size:clamp(30px,7vw,44px);letter-spacing:.04em}.hero p{margin:0;color:var(--muted);font-size:13px}
+.card{background:rgba(27,25,40,.94);border:1px solid var(--line);border-radius:20px;padding:18px;margin:13px 0;box-shadow:0 10px 30px #0002}.section-title{font-weight:800;font-size:15px;margin:0 0 13px;display:flex;align-items:center;gap:8px}.step{display:inline-grid;place-items:center;width:23px;height:23px;border-radius:8px;background:#34284f;color:#d9c9ff;font-size:12px}
+label{display:block;font-size:12px;color:var(--muted);margin:12px 0 7px}input[type=text],select{width:100%;height:47px;border:1px solid var(--line);border-radius:12px;background:#100f19;color:var(--text);padding:0 13px;font:inherit;outline:none}input:focus,select:focus{border-color:var(--accent)}.hint{font-size:11px;color:var(--muted);line-height:1.6;margin:8px 0 0}.options{display:grid;grid-template-columns:1fr 1fr;gap:9px}.option{position:relative}.option input{position:absolute;opacity:0}.option span{display:flex;align-items:center;justify-content:center;min-height:47px;padding:8px;border:1px solid var(--line);border-radius:12px;background:#14121e;font-size:13px;font-weight:700;text-align:center}.option input:checked+span{border-color:var(--accent);background:#35264f;color:#e5d8ff;box-shadow:inset 0 0 0 1px var(--accent)}
+button{border:0;border-radius:12px;padding:13px 15px;font:inherit;font-weight:800;cursor:pointer;color:var(--text);background:var(--panel2);transition:transform .08s,opacity .15s}button:active{transform:scale(.985)}button:disabled{opacity:.38;cursor:not-allowed}.primary{background:linear-gradient(135deg,#9b79f5,#7545db);color:white}.secondary{border:1px solid var(--line);background:#211e30}.green{background:#164c3d;color:#9ff0ce}.red{background:#512633;color:#ffb5c2}.wide{width:100%}.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:13px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:13px}.stat{background:#14121e;border:1px solid var(--line);border-radius:13px;padding:10px 7px;text-align:center}.stat b{display:block;font-size:21px;font-variant-numeric:tabular-nums}.stat small{color:var(--muted);font-size:10px}
+.player-shell{border-radius:15px;background:#08080d;overflow:hidden;border:1px solid #383247;min-height:200px;display:flex;align-items:center;justify-content:center;position:relative}.player-placeholder{position:absolute;inset:0;display:grid;place-content:center;text-align:center;color:#837b9b;gap:8px;pointer-events:none}.player-placeholder .disc{font-size:42px}.player-placeholder small{font-size:11px}#player{width:100%;height:220px;min-height:200px;position:relative;z-index:1}#player iframe{width:100%!important;height:220px!important}
+.question-head{display:flex;justify-content:space-between;align-items:center;margin:0 0 12px}.qnum{font-weight:900;font-size:17px}.status{font-size:12px;color:var(--muted);text-align:right}.status.live{color:var(--good)}.timer{font-size:clamp(34px,9vw,50px);font-weight:900;text-align:center;font-variant-numeric:tabular-nums;letter-spacing:.04em;margin:13px 0 5px}.bar{height:6px;background:#0e0d15;border-radius:20px;overflow:hidden}.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,#8b5cf6,#d5a8ff);transition:width .1s linear}.answer{margin-top:13px;padding:14px;border:1px dashed #62547e;background:#211b31;border-radius:13px;text-align:center}.answer small{display:block;color:var(--muted);font-size:11px;margin-bottom:5px}.answer strong{font-size:17px;word-break:break-word}.answer a{display:inline-block;color:#d5c2ff;font-size:11px;margin-top:8px}.score-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-top:12px}.message{padding:11px 13px;border-radius:12px;background:#171522;color:var(--muted);font-size:12px;line-height:1.6;margin-top:12px;border:1px solid #302b40}.message.error{color:#ffb5c2;border-color:#75404f;background:#291720}.message.ok{color:#a4f1d0;border-color:#326653;background:#14251f}.tiny{font-size:10px;color:var(--muted);line-height:1.6}.footer{text-align:center;color:#706a83;font-size:10px;margin-top:18px}.hidden{display:none!important}
+@media(max-width:420px){.wrap{padding:14px 12px 34px}.card{padding:15px}.options{gap:7px}.option span{font-size:12px}.btn-row,.score-actions{gap:7px}button{padding:12px 10px;font-size:13px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">SOLO MUSIC QUIZ</div>
+    <h1>イントロドン！</h1>
+    <p>自分のプレイリストで、何曲わかる？</p>
+  </header>
+
+  <section class="card">
+    <h2 class="section-title"><span class="step">1</span> プレイリスト</h2>
+    <label for="playlistUrl">YouTube / YouTube Music のプレイリストURL</label>
+    <input id="playlistUrl" type="text" inputmode="url" placeholder="https://www.youtube.com/playlist?list=..." autocomplete="url">
+    <p class="hint">公開または限定公開のプレイリストを指定してください。非公開プレイリストや、埋め込み再生が禁止された動画は利用できません。</p>
+    <button id="loadPlaylist" class="primary wide" style="margin-top:13px">プレイリストを読み込む</button>
+    <div id="playlistInfo" class="message">まだプレイリストを読み込んでいません。</div>
+  </section>
+
+  <section class="card">
+    <h2 class="section-title"><span class="step">2</span> 出題設定</h2>
+    <label>再生する位置</label>
+    <div class="options">
+      <label class="option"><input type="radio" name="position" value="beginning" checked><span>曲の冒頭から</span></label>
+      <label class="option"><input type="radio" name="position" value="random"><span>曲中からランダム</span></label>
+    </div>
+    <label for="clipLength">1問の再生時間</label>
+    <select id="clipLength">
+      <option value="1">1秒</option><option value="3" selected>3秒</option><option value="5">5秒</option><option value="10">10秒</option><option value="15">15秒</option><option value="20">20秒</option><option value="30">30秒</option>
+    </select>
+    <label class="option" style="margin-top:14px;display:flex;align-items:center;gap:9px;color:var(--text)"><input id="noRepeat" type="checkbox" checked style="position:static;opacity:1;width:18px;height:18px;accent-color:#a78bfa"><span style="display:inline;border:0;background:none;padding:0;min-height:0">一度出題した曲は、その周回では出さない</span></label>
+    <p class="hint">ランダム位置は動画の長さを取得して決めます。YouTubeの仕様上、実際の開始位置は近いキーフレームに調整されることがあります。</p>
+  </section>
+
+  <section class="card">
+    <h2 class="section-title"><span class="step">3</span> クイズ</h2>
+    <div class="stats">
+      <div class="stat"><b id="qCount">0</b><small>出題数</small></div>
+      <div class="stat"><b id="score">0</b><small>正解数</small></div>
+      <div class="stat"><b id="accuracy">—</b><small>正答率</small></div>
+    </div>
+    <div class="question-head"><div class="qnum" id="questionNo">第 — 問</div><div class="status" id="roundStatus">待機中</div></div>
+    <div class="player-shell">
+      <div class="player-placeholder" id="playerPlaceholder"><div class="disc">♫</div><small>プレイリストを読み込むと<br>ここにプレイヤーが表示されます</small></div>
+      <div id="player"></div>
+    </div>
+    <div class="timer" id="timer">00:00</div>
+    <div class="bar"><i id="progress"></i></div>
+    <div class="btn-row">
+      <button id="nextQuestion" class="primary" disabled>出題する</button>
+      <button id="replay" class="secondary" disabled>もう一度聴く</button>
+    </div>
+    <div class="btn-row">
+      <button id="stop" class="secondary" disabled>停止する</button>
+      <button id="showAnswer" class="secondary" disabled>答えを見る</button>
+    </div>
+    <div id="answerBox" class="answer hidden"><small>この曲の答え</small><strong id="answerTitle"></strong><br><a id="watchLink" href="#" target="_blank" rel="noopener">YouTubeで開く ↗</a></div>
+    <div class="score-actions">
+      <button id="correct" class="green" disabled>正解！</button>
+      <button id="incorrect" class="red" disabled>不正解</button>
+      <button id="skip" class="secondary" disabled>スキップ</button>
+    </div>
+    <div id="quizMessage" class="message">プレイリストを読み込んだら「出題する」を押してください。</div>
+  </section>
+  <p class="footer">音源はYouTubeのプレイヤーから再生します。通信環境によって読み込みに時間がかかる場合があります。<br>※HTMLファイルを直接開いてエラー153になる場合は、HTTPSのWebサイト上に置いて開いてください。</p>
+</div>
+<script>
+(() => {
+  'use strict';
+  const $ = (id) => document.getElementById(id);
+  const state = {
+    player: null, playerReady: false, apiLoading: false, apiReady: false,
+    playlistId: '', videoIds: [], used: new Set(), currentId: '', currentTitle: '',
+    currentStart: 0, currentWasRandom: false, replaying: false, currentMarked: false, clipMs: 3000, questionNo: 0, correct: 0, answered: 0,
+    roundStarted: false, preparingRandom: false, answerShown: false,
+    timerId: null, timerStart: 0, remainingMs: 0, currentPhase: 'idle',
+    playlistLoadToken: 0, questionToken: 0, lastMessage: ''
+  };
+
+  function setMessage(text, kind='') {
+    const el = $('quizMessage'); el.textContent = text; el.className = 'message' + (kind ? ' ' + kind : '');
+  }
+  function setPlaylistMessage(text, kind='') {
+    const el = $('playlistInfo'); el.textContent = text; el.className = 'message' + (kind ? ' ' + kind : '');
+  }
+  function getPositionMode() { return document.querySelector('input[name="position"]:checked').value; }
+  function getClipSeconds() { return Number($('clipLength').value); }
+  function parsePlaylistId(raw) {
+    const value = raw.trim();
+    if (!value) return '';
+    if (/^(PL|UU|LL|FL|RD|OLAK5uy_|UULF|MPRE)[A-Za-z0-9_-]+$/.test(value)) return value;
+    try {
+      const url = new URL(value);
+      const list = url.searchParams.get('list');
+      if (list) return list;
+      if (url.hostname.endsWith('youtu.be') || url.hostname.endsWith('youtube.com')) {
+        const match = url.pathname.match(/\/playlist\/([^/?]+)/);
+        if (match) return match[1];
+      }
+    } catch (_) {}
+    return '';
+  }
+  function updateStats() {
+    $('qCount').textContent = state.questionNo;
+    $('score').textContent = state.correct;
+    $('accuracy').textContent = state.answered ? Math.round(state.correct / state.answered * 100) + '%' : '—';
+  }
+  function clearTimer() { if (state.timerId) clearInterval(state.timerId); state.timerId = null; }
+  function showTimer(ms) {
+    const s = Math.max(0, ms) / 1000;
+    $('timer').textContent = '00:' + s.toFixed(1).padStart(4, '0');
+    const ratio = state.clipMs ? 1 - Math.max(0, ms) / state.clipMs : 0;
+    $('progress').style.width = Math.max(0, Math.min(100, ratio * 100)) + '%';
+  }
+  function setRoundStatus(text, live=false) {
+    $('roundStatus').textContent = text;
+    $('roundStatus').className = 'status' + (live ? ' live' : '');
+  }
+  function stopRound(message='再生終了。曲名を当ててください。') {
+    clearTimer();
+    state.currentPhase = 'stopped';
+    state.remainingMs = 0;
+    showTimer(0);
+    if (state.player && state.playerReady) state.player.pauseVideo();
+    setRoundStatus('回答待ち');
+    $('showAnswer').disabled = false;
+    $('replay').disabled = false;
+    $('stop').disabled = true;
+    setMessage(message, 'ok');
+  }
+  function startCountdown() {
+    clearTimer();
+    state.currentPhase = 'playing';
+    state.remainingMs = state.clipMs;
+    state.timerStart = performance.now();
+    state.roundStarted = true;
+    setRoundStatus('再生中', true);
+    $('showAnswer').disabled = false;
+    $('skip').disabled = false;
+    $('stop').disabled = false;
+    $('nextQuestion').disabled = true;
+    $('replay').disabled = true;
+    setMessage('イントロを聴いて、曲名を考えてください。');
+    state.timerId = setInterval(() => {
+      const elapsed = performance.now() - state.timerStart;
+      const remain = Math.max(0, state.clipMs - elapsed);
+      showTimer(remain);
+      if (remain <= 0) stopRound();
+    }, 60);
+  }
+  function revealAnswer() {
+    if (!state.currentId) return;
+    if (state.currentPhase === 'playing' && state.player) stopRound('再生を止めました。答えを確認してください。');
+    state.answerShown = true;
+    $('answerTitle').textContent = state.currentTitle || '曲名を取得できませんでした';
+    $('watchLink').href = 'https://www.youtube.com/watch?v=' + encodeURIComponent(state.currentId);
+    $('answerBox').classList.remove('hidden');
+    $('correct').disabled = state.currentMarked;
+    $('incorrect').disabled = state.currentMarked;
+    $('skip').disabled = true;
+    $('showAnswer').disabled = true;
+    $('nextQuestion').disabled = false;
+    $('replay').disabled = false;
+    setRoundStatus('答え表示中');
+    setMessage('答えを確認して、自分で正解・不正解を記録してください。');
+  }
+  function finishMark(isCorrect) {
+    if (!state.currentId || !state.answerShown || state.currentMarked) return;
+    state.answered++;
+    if (isCorrect) state.correct++;
+    state.currentPhase = 'marked';
+    state.currentMarked = true;
+    $('skip').disabled = true;
+    updateStats();
+    $('correct').disabled = true; $('incorrect').disabled = true;
+    $('nextQuestion').disabled = false; $('replay').disabled = false;
+    setRoundStatus(isCorrect ? '正解！' : '不正解');
+    setMessage(isCorrect ? '正解！次の問題に進めます。' : '記録しました。次の問題に進めます。', isCorrect ? 'ok' : '');
+  }
+  function pickVideo() {
+    if (!state.videoIds.length) return '';
+    const noRepeat = $('noRepeat').checked;
+    let pool = noRepeat ? state.videoIds.filter(id => !state.used.has(id)) : state.videoIds;
+    if (!pool.length && noRepeat) {
+      state.used.clear();
+      pool = state.videoIds.slice();
+      setMessage('全曲を一周しました。出題済みリストをリセットします。');
+    }
+    const id = pool[Math.floor(Math.random() * pool.length)];
+    if (noRepeat) state.used.add(id);
+    return id;
+  }
+  function beginQuestion(id, sameQuestion=false) {
+    if (!state.playerReady || !state.videoIds.length) return;
+    clearTimer();
+    state.questionToken++;
+    const token = state.questionToken;
+    state.currentId = id || pickVideo();
+    if (!state.currentId) return;
+    state.currentTitle = '';
+    state.clipMs = getClipSeconds() * 1000;
+    state.currentStart = 0;
+    state.currentWasRandom = getPositionMode() === 'random';
+    state.replaying = false;
+    state.currentMarked = false;
+    state.answerShown = false;
+    state.roundStarted = false;
+    state.preparingRandom = state.currentWasRandom;
+    state.currentPhase = state.preparingRandom ? 'preparing' : 'loading';
+    if (!sameQuestion) state.questionNo++;
+    $('questionNo').textContent = '第 ' + state.questionNo + ' 問';
+    $('answerBox').classList.add('hidden');
+    $('correct').disabled = true; $('incorrect').disabled = true; $('skip').disabled = true;
+    $('showAnswer').disabled = true; $('nextQuestion').disabled = true;
+    $('replay').disabled = true; $('stop').disabled = true; $('skip').disabled = false;
+    showTimer(state.clipMs); setRoundStatus('読み込み中');
+    $('playerPlaceholder').classList.add('hidden');
+    updateStats();
+    try {
+      if (state.preparingRandom) {
+        state.player.mute();
+        state.player.loadVideoById({videoId:state.currentId, startSeconds:0});
+        setMessage('曲の長さを確認して、再生位置をランダムに決めています。');
+      } else {
+        state.player.unMute();
+        state.player.loadVideoById({videoId:state.currentId, startSeconds:0, endSeconds:state.clipMs / 1000});
+        setMessage('動画を読み込んでいます。');
+      }
+      state.lastMessage = String(token);
+    } catch (err) {
+      setMessage('動画を読み込めませんでした。別の曲を試してください。', 'error');
+      setRoundStatus('読み込み失敗');
+    }
+  }
+  function prepareRandomStart() {
+    if (!state.preparingRandom || !state.player || !state.currentId) return;
+    const duration = state.player.getDuration();
+    if (!duration || !Number.isFinite(duration) || duration < 0.5) {
+      setTimeout(prepareRandomStart, 180);
+      return;
+    }
+    const maxStart = Math.max(0, duration - state.clipMs / 1000);
+    const start = state.replaying ? state.currentStart : (maxStart > 0 ? Math.random() * maxStart : 0);
+    state.currentStart = start;
+    state.replaying = false;
+    const info = state.player.getVideoData ? state.player.getVideoData() : null;
+    state.currentTitle = info && info.title ? info.title : '';
+    state.preparingRandom = false;
+    state.player.pauseVideo();
+    state.player.seekTo(start, true);
+    setTimeout(() => {
+      if (!state.player || !state.currentId) return;
+      state.player.unMute();
+      state.player.playVideo();
+    }, 220);
+  }
+  function replayQuestion() {
+    if (!state.currentId) return;
+    clearTimer();
+    state.roundStarted = false;
+    state.answerShown = false;
+    state.currentPhase = 'loading';
+    $('answerBox').classList.add('hidden');
+    $('correct').disabled = true; $('incorrect').disabled = true; $('skip').disabled = true;
+    $('showAnswer').disabled = true; $('nextQuestion').disabled = true;
+    $('replay').disabled = true; $('stop').disabled = true; $('skip').disabled = state.currentMarked;
+    showTimer(state.clipMs); setRoundStatus('再読み込み中');
+    if (state.currentWasRandom) {
+      state.replaying = true;
+      state.preparingRandom = true;
+      state.player.mute();
+      state.player.loadVideoById({videoId:state.currentId, startSeconds:0});
+    } else {
+      state.preparingRandom = false;
+      state.player.unMute();
+      state.player.loadVideoById({videoId:state.currentId, startSeconds:0, endSeconds:state.clipMs / 1000});
+    }
+  }
+  function loadPlaylist() {
+    const id = parsePlaylistId($('playlistUrl').value);
+    if (!id) { setPlaylistMessage('プレイリストURLまたはプレイリストIDを確認してください。', 'error'); return; }
+    state.playlistId = id;
+    state.videoIds = []; state.used.clear();
+    state.playlistLoadToken++;
+    $('loadPlaylist').disabled = true;
+    $('nextQuestion').disabled = true;
+    setPlaylistMessage('YouTubeにプレイリストを問い合わせています…');
+    try { localStorage.setItem('introQuizPlaylistUrl', $('playlistUrl').value.trim()); } catch (_) {}
+    ensureApi();
+    if (state.playerReady) cuePlaylist();
+  }
+  function cuePlaylist() {
+    if (!state.playerReady || !state.playlistId) return;
+    try {
+      state.player.stopVideo();
+      state.player.cuePlaylist({listType:'playlist', list:state.playlistId, index:0});
+      const token = state.playlistLoadToken;
+      let attempts = 0;
+      const check = () => {
+        if (token !== state.playlistLoadToken) return;
+        const ids = state.player.getPlaylist ? state.player.getPlaylist() : [];
+        if (ids && ids.length) {
+          state.videoIds = [...new Set(ids.filter(Boolean))];
+          state.used.clear();
+          $('loadPlaylist').disabled = false;
+          $('nextQuestion').disabled = false;
+          setPlaylistMessage('読み込み完了：' + state.videoIds.length + '曲。クイズを始められます。', 'ok');
+          $('playerPlaceholder').classList.add('hidden');
+          setMessage('準備完了。「出題する」を押してください。', 'ok');
+          setRoundStatus('準備完了');
+          return;
+        }
+        attempts++;
+        if (attempts < 12) setTimeout(check, 350);
+        else {
+          $('loadPlaylist').disabled = false;
+          setPlaylistMessage('プレイリスト内の動画を取得できませんでした。公開設定とURLを確認してください。', 'error');
+        }
+      };
+      setTimeout(check, 450);
+    } catch (err) {
+      $('loadPlaylist').disabled = false;
+      setPlaylistMessage('プレイリストを読み込めませんでした。URLを確認してください。', 'error');
+    }
+  }
+  function ensureApi() {
+    if (window.YT && window.YT.Player) { createPlayer(); return; }
+    if (state.apiLoading) return;
+    state.apiLoading = true;
+    window.onYouTubeIframeAPIReady = () => { state.apiReady = true; createPlayer(); };
+    const script = document.createElement('script');
+    script.src = 'https://www.youtube.com/iframe_api';
+    script.onerror = () => {
+      state.apiLoading = false; $('loadPlaylist').disabled = false;
+      setPlaylistMessage('YouTubeのプレイヤーAPIを読み込めません。通信環境を確認してください。', 'error');
+    };
+    document.head.appendChild(script);
+  }
+  function createPlayer() {
+    if (state.player || !window.YT || !window.YT.Player) return;
+    const playerVars = {playsinline:1, controls:0, disablekb:1, rel:0};
+    if (location.protocol === 'https:' || location.protocol === 'http:') playerVars.origin = location.origin;
+    state.player = new YT.Player('player', {
+      width:'100%', height:'220', playerVars,
+      events: {
+        onReady: () => {
+          state.playerReady = true;
+          if (state.playlistId) cuePlaylist();
+          else setPlaylistMessage('プレイヤーの準備ができました。プレイリストURLを読み込んでください。');
+        },
+        onStateChange: (event) => {
+          if (event.data === YT.PlayerState.PLAYING) {
+            if (state.preparingRandom) { prepareRandomStart(); return; }
+            if (!state.roundStarted) {
+              const info = state.player.getVideoData ? state.player.getVideoData() : null;
+              if (info && info.title) state.currentTitle = info.title;
+              startCountdown();
+            }
+          } else if (event.data === YT.PlayerState.ENDED && state.currentPhase === 'playing') {
+            stopRound('動画が終了しました。答えを確認してください。');
+          }
+        },
+        onError: (event) => {
+          clearTimer();
+          const messages = {
+            2:'動画IDまたはプレイリストの指定が正しくありません。',
+            5:'この動画は現在のプレイヤーで再生できません。',
+            100:'動画が削除されているか、非公開になっています。',
+            101:'投稿者が埋め込み再生を許可していません。',
+            150:'投稿者が埋め込み再生を許可していません。',
+            153:'YouTubeがページの参照元を確認できません。HTTPSのWebサイト上で開いてください。'
+          };
+          setRoundStatus('再生できません');
+          setMessage((messages[event.data] || 'YouTube側で再生エラーが発生しました。') + '「出題する」で別の曲を試せます。', 'error');
+          $('stop').disabled = true; $('showAnswer').disabled = true; $('skip').disabled = false; $('nextQuestion').disabled = false;
+        },
+        onAutoplayBlocked: () => {
+          setMessage('ブラウザが自動再生を止めました。もう一度「出題する」または「もう一度聴く」を押してください。', 'error');
+          setRoundStatus('再生待ち');
+        }
+      }
+    });
+  }
+
+  $('loadPlaylist').addEventListener('click', loadPlaylist);
+  $('nextQuestion').addEventListener('click', () => {
+    if (!state.videoIds.length) return;
+    beginQuestion();
+  });
+  $('replay').addEventListener('click', replayQuestion);
+  $('stop').addEventListener('click', () => stopRound('停止しました。答えを確認してください。'));
+  $('showAnswer').addEventListener('click', revealAnswer);
+  $('correct').addEventListener('click', () => finishMark(true));
+  $('incorrect').addEventListener('click', () => finishMark(false));
+  $('skip').addEventListener('click', () => {
+    if (!state.currentId || state.currentMarked) return;
+    clearTimer();
+    if (state.player && state.playerReady) state.player.pauseVideo();
+    state.currentMarked = true; state.currentPhase = 'marked';
+    $('answerBox').classList.add('hidden');
+    $('showAnswer').disabled = true; $('correct').disabled = true; $('incorrect').disabled = true;
+    $('skip').disabled = true; $('stop').disabled = true; $('replay').disabled = true; $('nextQuestion').disabled = false;
+    setRoundStatus('スキップ'); setMessage('この問題をスキップしました。正答率には含めません。');
+  });
+  try { $('playlistUrl').value = localStorage.getItem('introQuizPlaylistUrl') || ''; } catch (_) {}
+})();
+</script>
+</body>
+</html>
